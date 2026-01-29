@@ -5,6 +5,10 @@ editor: visual
 author: "Yefrid Cordoba"
 ---
 
+```{r}
+
+```
+
 ## Problem 1
 
 A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.    
@@ -13,23 +17,19 @@ A physician wanted to estimate the mean length of time µ that a patient had to 
 n <- 36
 x_bar <- 23.4
 sd <- 7.2
+t_star <- qnorm(0.98) #for n>30 and unknown sigma, we use standard normal distribution
+SE <- sd / sqrt(n)
+Upper <- x_bar + t_star * SE
+Lower <- x_bar - t_star * SE
+Upper
+Lower
 ```
 
+We are 96% confident that the true mean waiting time at the physician's office is between (`r round(Upper, 2)`, `r round(Lower, 2)`) minutes.
+
+## Problem 2
+
+It is hoped that a newly developed pain reliever will more quickly produce perceptible reduction in pain to patients after minor surgeries than a standard pain reliever. The standard pain reliever is known to bring relief in an average of 3.5 minutes. To test whether the new pain reliever works more quickly than the standard one, 50 patients with minor surgeries were given the new pain reliever and their times to relief were recorded. The experiment yielded sample mean x ̅=3.1 minutes and sample standard deviation s = 1.5 minutes. Is there sufficient evidence in the sample to indicate, at the 5% level of significance, that the newly developed pain reliever does deliver perceptible relief more quickly?
 
 
-## Running Code
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
