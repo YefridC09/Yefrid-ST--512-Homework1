@@ -47,11 +47,14 @@ t_obs
 t_s <- qt(0.05, n2 - 1)
 t_s
 t_obs < t_s 
+pt(t_obs, n2-1, lower.tail = T) < 0.05 #alpha
 ```
-As $t_o < t_s$ is true for a 
+As $t_{obs} < t_s$ is true for a lower tailed test, we reject the null hypothesis, and we have strong evidence to conclude that the recovery time for the new pain reliever is shorter than the standard pain reliever.
 
-This is inline math: $E = mc^{2}$.
+## Problem 3
+A software company markets a new computer game with two experimental packaging designs. Design 1 is sent to 11 stores; their average sales the first month is 52 units with sample standard deviation 12 units. Design 2 is sent to 6 stores; their average sales the first month is 46 units with sample standard deviation 10 units. 
 
+a. Construct a point estimate and a 95% confidence interval for the difference in average monthly sales between the two package designs assuming σ_1^2=σ_2^2.
+         
 
-
-
+b. Test at the 1% level of significance (assuming σ_1^2=σ_2^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.
