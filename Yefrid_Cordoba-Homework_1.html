@@ -134,8 +134,8 @@ window.Quarto = {
 
 <section id="problem-1" class="level2">
 <h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
-<p>A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.<br>
-<strong>R/</strong></p>
+<p>A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.</p>
+<p><strong>R/</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">36</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x_bar1 <span class="ot">&lt;-</span> <span class="fl">23.4</span></span>
@@ -153,11 +153,12 @@ window.Quarto = {
 <pre><code>[1] 20.9355</code></pre>
 </div>
 </div>
-<p>We are 96% confident that the true mean waiting time at the physician’s office is between (25.86, 20.94) minutes.</p>
+<p>We are 96% confident that the true mean waiting time at the physician’s office is between (20.94, 25.86) minutes.</p>
 </section>
 <section id="problem-2" class="level2">
 <h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
 <p>It is hoped that a newly developed pain reliever will more quickly produce perceptible reduction in pain to patients after minor surgeries than a standard pain reliever. The standard pain reliever is known to bring relief in an average of 3.5 minutes. To test whether the new pain reliever works more quickly than the standard one, 50 patients with minor surgeries were given the new pain reliever and their times to relief were recorded. The experiment yielded sample mean x ̅=3.1 minutes and sample standard deviation s = 1.5 minutes. Is there sufficient evidence in the sample to indicate, at the 5% level of significance, that the newly developed pain reliever does deliver perceptible relief more quickly?</p>
+<p><strong>R/</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="fl">3.5</span> <span class="co">#standard pain reliever time</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
@@ -180,8 +181,252 @@ window.Quarto = {
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t_obs, n2<span class="dv">-1</span>, <span class="at">lower.tail =</span> T) <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="co">#alpha</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
 </div>
-<p>As <span class="math inline">\(t_{obs} &lt; t_s\)</span> is true for a</p>
+</div>
+<p>As <span class="math inline">\(t_{obs} &lt; t_s\)</span> is true for a lower tailed test, we reject the null hypothesis, and we have strong evidence to conclude that the recovery time for the new pain reliever is shorter than the standard pain reliever.</p>
+</section>
+<section id="problem-3" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
+<p>A software company markets a new computer game with two experimental packaging designs. Design 1 is sent to 11 stores; their average sales the first month is 52 units with sample standard deviation 12 units. Design 2 is sent to 6 stores; their average sales the first month is 46 units with sample standard deviation 10 units.<br>
+<strong>a.</strong><br>
+Construct a point estimate and a 95% confidence interval for the difference in average monthly sales between the two package designs assuming σ_1^2 = σ_2^2.</p>
+<p><strong>R/</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nd1 <span class="ot">&lt;-</span> <span class="dv">11</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x_bard1 <span class="ot">&lt;-</span> <span class="dv">52</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sd_d1 <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>nd2 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>x_bard2 <span class="ot">&lt;-</span> <span class="dv">46</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>sd_d2 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> nd1 <span class="sc">+</span> nd2 <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>PE <span class="ot">&lt;-</span> x_bard1 <span class="sc">-</span> x_bard2</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>PE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Sp2 <span class="ot">&lt;-</span> ((nd1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> sd_d1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (nd2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> sd_d2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> df</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Sp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 129.3333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Sp2<span class="sc">*</span> ( <span class="dv">1</span><span class="sc">/</span>nd1 <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>nd2 ))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>SE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.771753</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>t_star <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, df, <span class="at">lower.tail =</span> F)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>t_star</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.13145</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Upper <span class="ot">&lt;-</span> PE <span class="sc">+</span> SE <span class="sc">*</span> t_star</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Upper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.3022</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Lower <span class="ot">&lt;-</span> PE <span class="sc">-</span> SE <span class="sc">*</span> t_star</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Lower</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -6.3022</code></pre>
+</div>
+</div>
+<p>We are 95% confident that the true difference in the mean monthly sales with design 1 and design 2 is between -6.3 and 18.3. This means that the mean monthly sales of the new computer game for the packaging with design 1 is between 18.3 higher, and -6.3 lower than the sales for design 2.</p>
+<p><strong>b.</strong><br>
+Test at the 1% level of significance (assuming σ_1^2 = σ_2^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.</p>
+<p><strong>R/</strong><br>
+<span class="math display">\[H_o : \mu_1 - \mu_2 = 0\]</span> <span class="math display">\[H_a : \mu_1 - \mu_2 \neq 0\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>t_d12 <span class="ot">&lt;-</span> (PE <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> SE</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>t_d12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.039546</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.005</span>, df)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(t_crit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.946713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t_crit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.946713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>t_d12 <span class="sc">&gt;=</span> t_crit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="fl">1.039546</span>, df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8424909</code></pre>
+</div>
+</div>
+<p>Based on the data, We fail to reject the null hypothesis, and have weak evidence to conclude that the true mean sales per moth of the two designs are different, considering a 1% of significance.</p>
+</section>
+<section id="problem-4" class="level2">
+<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
+<p>Gardener is interested in studying the relationship between fertilizer and tomato yield. The gardener has two gardens (1 and 2). He divides each into 9 plots. Three fertilizer application rates (3, 5, and 7 units/acre) are assigned to the plots in garden 1 in a completely randomized fashion. The same three fertilizer application rates (3, 5, and 7 units/acre) are assigned to the plots in garden 2 in a completely randomized fashion. Thus, there are three plots for each combination of garden and fertilizer application rate.</p>
+<p><strong>a.</strong><br>
+Is this an example of experimental or observational study?</p>
+<p><strong>R/</strong> <em>This is an experimental study</em></p>
+<p><strong>b.</strong><br>
+What study design was employed in this study?</p>
+<p><strong>R/</strong> <em>It is block design</em></p>
+<p><strong>c.</strong><br>
+Identify the following:</p>
+<ul>
+<li>Response Variable: <em>Tomato yield</em></li>
+<li>Factor: <em>Fertilizer application rate</em></li>
+<li>Treatments: <em>3, 5, and 7 units/acre</em></li>
+</ul>
+<p><strong>d.</strong><br>
+How many replications are there for each treatment?</p>
+<p><strong>R/</strong> <em>There are 3 replicates for each treatment within each block</em></p>
+</section>
+<section id="problem-5" class="level2">
+<h2 class="anchored" data-anchor-id="problem-5">Problem 5</h2>
+<p>A horticulturist was investigating the phosphorous content of tree leaves from three different varieties of apple trees (A, B, and C). For each variety, leaf samples were taken from each of 8 trees. The phosphorous content in the leaf sample was separately measured for each tree. One sample from variety C was inadvertently destroyed before the phosphorous measurement could be taken. Thus, there were 8 phosphorous measurements for each of varieties A and B, and 7 phosphorous measurements for variety C. The mean and variance of phosphorous measurements for each variety are provided below.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Variety</th>
+<th style="text-align: center;">Mean</th>
+<th style="text-align: center;">Variance</th>
+<th style="text-align: center;">Sample size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">312</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">310</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">321</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a.</strong><br>
+Provide an ANOVA table with columns for Source, Degrees of Freedom, Sum of Squares, and Mean Squares.</p>
+<p><strong>R/</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>nt <span class="ot">&lt;-</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">7</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>yt <span class="ot">&lt;-</span> (<span class="dv">8</span> <span class="sc">*</span> <span class="dv">72</span> <span class="sc">+</span> <span class="dv">8</span> <span class="sc">*</span> <span class="dv">68</span> <span class="sc">+</span> <span class="dv">7</span> <span class="sc">*</span> <span class="dv">55</span>) <span class="sc">/</span> nt</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>SStr <span class="ot">&lt;-</span> <span class="dv">8</span> <span class="sc">*</span> ( <span class="dv">72</span> <span class="sc">-</span> yt ) <span class="sc">^</span> <span class="dv">2</span>  <span class="sc">+</span> <span class="dv">8</span> <span class="sc">*</span> ( <span class="dv">68</span> <span class="sc">-</span> yt ) <span class="sc">^</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">7</span> <span class="sc">*</span> ( <span class="dv">55</span> <span class="sc">-</span> yt ) <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>SStr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1159.652</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>SSe <span class="ot">&lt;-</span> ( <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">312</span> <span class="sc">+</span> ( <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">310</span> <span class="sc">+</span> ( <span class="dv">7</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">321</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>SSe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6280</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>MStr <span class="ot">&lt;-</span> SStr <span class="sc">/</span> (a <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>MStr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 579.8261</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>MSe <span class="ot">&lt;-</span> SSe <span class="sc">/</span> (nt <span class="sc">-</span> a)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>MSe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 314</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>SST <span class="ot">&lt;-</span> SStr <span class="sc">+</span> SSe</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>SST</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7439.652</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>F_v <span class="ot">&lt;-</span> MStr <span class="sc">/</span> MSe</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>F_v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.84658</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>P_v <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F_v, a <span class="sc">-</span> <span class="dv">1</span>, nt <span class="sc">-</span> a )</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>P_v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1836835</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source of variation</th>
+<th>df</th>
+<th>SS</th>
+<th>MS</th>
+<th>F-value</th>
+<th>P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between</td>
+<td>2</td>
+<td>1159.65</td>
+<td>579.83</td>
+<td>1.85</td>
+<td>0.184</td>
+</tr>
+<tr class="even">
+<td>With-in (Error)</td>
+<td>20</td>
+<td>6280</td>
+<td>314</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>22</td>
+<td>7439.65</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>b.</strong><br>
+Do you think the leaves of all three varieties have the same mean phosphorous content? Provide a test statistic and an approximate p-value to support your answer.</p>
+<p><strong>R/</strong><br>
+<span class="math display">\[
+H_o : \mu_A = \mu_B = \mu_C
+\]</span> <span class="math display">\[
+H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>F_cr <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span><span class="fl">-0.05</span>, a <span class="sc">-</span> <span class="dv">1</span>, nt <span class="sc">-</span> a )</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>F_cr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.492828</code></pre>
+</div>
+</div>
+<p>The probability of getting this results under the assumption of the null hypothesis is higher compared to the <span class="math inline">\(\alpha = 5\%\)</span>, we fail to reject the null hypothesis, and have weak evidence to conclude that at least one of the mean phosphorous content from one tree variety is different from the others.</p>
+</section>
+<section id="problem-6" class="level2">
+<h2 class="anchored" data-anchor-id="problem-6">Problem 6</h2>
+<p>To study the effects of pesticides on birds, an experimenter randomly and equally allocated 65 chicks to five diets (a control and four with a different pesticide included). After a month each chick’s calcium content (mg) in 2 cm length of bone was measured resulting in the following:</p>
 </section>
 
 </main>

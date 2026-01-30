@@ -11,9 +11,9 @@ author: "Yefrid Cordoba"
 
 ## Problem 1
 
-A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.\
-**R/**
+A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.
 
+**R/**    
 ```{r}
 n1 <- 36
 x_bar1 <- 23.4
@@ -26,12 +26,13 @@ Upper
 Lower
 ```
 
-We are 96% confident that the true mean waiting time at the physician's office is between (`r round(Upper, 2)`, `r round(Lower, 2)`) minutes.
+We are 96% confident that the true mean waiting time at the physician's office is between (`r round(Lower, 2)`, `r round(Upper, 2)`) minutes.
 
 ## Problem 2
 
 It is hoped that a newly developed pain reliever will more quickly produce perceptible reduction in pain to patients after minor surgeries than a standard pain reliever. The standard pain reliever is known to bring relief in an average of 3.5 minutes. To test whether the new pain reliever works more quickly than the standard one, 50 patients with minor surgeries were given the new pain reliever and their times to relief were recorded. The experiment yielded sample mean x ̅=3.1 minutes and sample standard deviation s = 1.5 minutes. Is there sufficient evidence in the sample to indicate, at the 5% level of significance, that the newly developed pain reliever does deliver perceptible relief more quickly?
 
+**R/**    
 ```{r}
 mu_0 <- 3.5 #standard pain reliever time
 n2 <- 50
@@ -39,8 +40,8 @@ x_bar2 <- 3.1
 sd2 <- 1.5
 ```
 
-$$H_o : \mu_2 = \mu_0$$
-$$H_a  : \mu_2 < \mu_0$$
+$$H_o : \mu_2 = \mu_0$$ $$H_a  : \mu_2 < \mu_0$$
+
 ```{r}
 t_obs <- (x_bar2 - mu_0) / (sd2 / sqrt(n2))
 t_obs
@@ -49,12 +50,142 @@ t_s
 t_obs < t_s 
 pt(t_obs, n2-1, lower.tail = T) < 0.05 #alpha
 ```
+
 As $t_{obs} < t_s$ is true for a lower tailed test, we reject the null hypothesis, and we have strong evidence to conclude that the recovery time for the new pain reliever is shorter than the standard pain reliever.
 
 ## Problem 3
-A software company markets a new computer game with two experimental packaging designs. Design 1 is sent to 11 stores; their average sales the first month is 52 units with sample standard deviation 12 units. Design 2 is sent to 6 stores; their average sales the first month is 46 units with sample standard deviation 10 units. 
 
-a. Construct a point estimate and a 95% confidence interval for the difference in average monthly sales between the two package designs assuming σ_1^2=σ_2^2.
-         
+A software company markets a new computer game with two experimental packaging designs. Design 1 is sent to 11 stores; their average sales the first month is 52 units with sample standard deviation 12 units. Design 2 is sent to 6 stores; their average sales the first month is 46 units with sample standard deviation 10 units.\
+**a.**\
+Construct a point estimate and a 95% confidence interval for the difference in average monthly sales between the two package designs assuming σ_1\^2 = σ_2\^2.
 
-b. Test at the 1% level of significance (assuming σ_1^2=σ_2^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.
+**R/**    
+```{r}
+nd1 <- 11 
+x_bard1 <- 52
+sd_d1 <- 12
+nd2 <- 6
+x_bard2 <- 46
+sd_d2 <- 10
+df <- nd1 + nd2 - 2
+
+PE <- x_bard1 - x_bard2
+PE
+Sp2 <- ((nd1 - 1) * sd_d1^2 + (nd2 - 1) * sd_d2^2) / df
+Sp2
+SE <- sqrt(Sp2* ( 1/nd1 + 1/nd2 ))
+SE
+
+t_star <- qt(0.025, df, lower.tail = F)
+t_star
+Upper <- PE + SE * t_star
+Upper
+Lower <- PE - SE * t_star
+Lower
+```
+
+We are 95% confident that the true difference in the mean monthly sales with design 1 and design 2 is between `r round(Lower, 2)` and `r round(Upper, 2)`. This means that the mean monthly sales of the new computer game for the packaging with design 1 is between `r round(Upper, 2)` higher, and `r round(Lower, 2)` lower than the sales for design 2.
+
+**b.**\
+Test at the 1% level of significance (assuming σ_1\^2 = σ_2\^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.
+
+**R/**    
+$$H_o : \mu_1 - \mu_2 = 0$$ $$H_a : \mu_1 - \mu_2 \neq 0$$
+
+```{r}
+t_d12 <- (PE - 0) / SE
+t_d12
+t_crit <- qt(0.005, df)
+abs(t_crit)
+t_crit
+t_d12 >= t_crit
+pt(1.039546, df)
+```
+
+Based on the data, We fail to reject the null hypothesis, and have weak evidence to conclude that the true mean sales per moth of the two designs are different, considering a 1% of significance.
+
+## Problem 4
+
+Gardener is interested in studying the relationship between fertilizer and tomato yield. The gardener has two gardens (1 and 2). He divides each into 9 plots. Three fertilizer application rates (3, 5, and 7 units/acre) are assigned to the plots in garden 1 in a completely randomized fashion. The same three fertilizer application rates (3, 5, and 7 units/acre) are assigned to the plots in garden 2 in a completely randomized fashion. Thus, there are three plots for each combination of garden and fertilizer application rate.
+
+**a.**\
+Is this an example of experimental or observational study?
+
+**R/** *This is an experimental study*
+
+**b.**\
+What study design was employed in this study?
+
+**R/** *It is block design*
+
+**c.**\
+Identify the following:
+
+-   Response Variable: *Tomato yield*
+-   Factor: *Fertilizer application rate*
+-   Treatments: *3, 5, and 7 units/acre*
+
+**d.**\
+How many replications are there for each treatment?
+
+**R/** *There are 3 replicates for each treatment within each block*
+
+## Problem 5
+
+A horticulturist was investigating the phosphorous content of tree leaves from three different varieties of apple trees (A, B, and C). For each variety, leaf samples were taken from each of 8 trees. The phosphorous content in the leaf sample was separately measured for each tree. One sample from variety C was inadvertently destroyed before the phosphorous measurement could be taken. Thus, there were 8 phosphorous measurements for each of varieties A and B, and 7 phosphorous measurements for variety C. The mean and variance of phosphorous measurements for each variety are provided below.
+
+| Variety | Mean | Variance | Sample size |
+|:-------:|:----:|:--------:|:-----------:|
+|    A    |  72  |   312    |      8      |
+|    B    |  68  |   310    |      8      |
+|    C    |  55  |   321    |      7      |
+
+**a.**\
+Provide an ANOVA table with columns for Source, Degrees of Freedom, Sum of Squares, and Mean Squares.
+
+**R/**    
+```{r}
+nt <- 8 + 8 + 7
+a <- 3
+yt <- (8 * 72 + 8 * 68 + 7 * 55) / nt
+SStr <- 8 * ( 72 - yt ) ^ 2  + 8 * ( 68 - yt ) ^ 2 + 7 * ( 55 - yt ) ^ 2
+SStr
+SSe <- ( 8 - 1) * 312 + ( 8 - 1) * 310 + ( 7 - 1) * 321 
+SSe
+MStr <- SStr / (a - 1)
+MStr
+MSe <- SSe / (nt - a)
+MSe
+SST <- SStr + SSe
+SST
+F_v <- MStr / MSe
+F_v
+P_v <- 1 - pf(F_v, a - 1, nt - a )
+P_v
+```
+
+| Source of variation | df | SS | MS | F-value | P-value |
+|------------|------------|------------|------------|------------|------------|
+| Between | `r a-1` | `r round(SStr, 2)` | `r round(MStr, 2)` | `r round(F_v, 2)` | `r round(P_v, 3)` |
+| With-in (Error) | `r nt-a` | `r round(SSe, 2)` | `r round(MSe, 2)` |  |  |
+| Total | `r nt-1` | `r round(SST, 2)` |  |  |  |
+
+**b.**    
+Do you think the leaves of all three varieties have the same mean phosphorous content? Provide a test statistic and an approximate p-value to support your answer.
+
+**R/**    
+$$
+H_o : \mu_A = \mu_B = \mu_C 
+$$ 
+$$
+H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
+$$
+```{r}
+F_cr <- qf(1-0.05, a - 1, nt - a )
+F_cr
+```
+The probability of getting this results under the assumption of the null hypothesis is higher compared to the $\alpha = 5\%$, we fail to reject the null hypothesis, and have weak evidence to conclude that at least one of the mean phosphorous content from one tree variety is different from the others.
+
+## Problem 6
+
+To study the effects of pesticides on birds, an experimenter randomly and equally allocated 65 chicks to five diets (a control and four with a different pesticide included). After a month each chick’s calcium content (mg) in 2 cm length of bone was measured resulting in the following: 
