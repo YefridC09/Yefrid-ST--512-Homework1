@@ -13,7 +13,8 @@ author: "Yefrid Cordoba"
 
 A physician wanted to estimate the mean length of time µ that a patient had to wait to see him after arriving at the office. A random sample of 36 patients showed a mean waiting time of 23.4 minutes and a standard deviation of 7.2 minutes. Find a 96% confidence interval for µ.
 
-**R/**    
+**R/**
+
 ```{r}
 n1 <- 36
 x_bar1 <- 23.4
@@ -32,7 +33,8 @@ We are 96% confident that the true mean waiting time at the physician's office i
 
 It is hoped that a newly developed pain reliever will more quickly produce perceptible reduction in pain to patients after minor surgeries than a standard pain reliever. The standard pain reliever is known to bring relief in an average of 3.5 minutes. To test whether the new pain reliever works more quickly than the standard one, 50 patients with minor surgeries were given the new pain reliever and their times to relief were recorded. The experiment yielded sample mean x ̅=3.1 minutes and sample standard deviation s = 1.5 minutes. Is there sufficient evidence in the sample to indicate, at the 5% level of significance, that the newly developed pain reliever does deliver perceptible relief more quickly?
 
-**R/**    
+**R/**
+
 ```{r}
 mu_0 <- 3.5 #standard pain reliever time
 n2 <- 50
@@ -59,7 +61,8 @@ A software company markets a new computer game with two experimental packaging d
 **a.**\
 Construct a point estimate and a 95% confidence interval for the difference in average monthly sales between the two package designs assuming σ_1\^2 = σ_2\^2.
 
-**R/**    
+**R/**
+
 ```{r}
 nd1 <- 11 
 x_bard1 <- 52
@@ -89,7 +92,7 @@ We are 95% confident that the true difference in the mean monthly sales with des
 **b.**\
 Test at the 1% level of significance (assuming σ_1\^2 = σ_2\^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.
 
-**R/**    
+**R/**\
 $$H_o : \mu_1 - \mu_2 = 0$$ $$H_a : \mu_1 - \mu_2 \neq 0$$
 
 ```{r}
@@ -143,7 +146,8 @@ A horticulturist was investigating the phosphorous content of tree leaves from t
 **a.**\
 Provide an ANOVA table with columns for Source, Degrees of Freedom, Sum of Squares, and Mean Squares.
 
-**R/**    
+**R/**
+
 ```{r}
 nt <- 8 + 8 + 7
 a <- 3
@@ -170,22 +174,59 @@ P_v
 | With-in (Error) | `r nt-a` | `r round(SSe, 2)` | `r round(MSe, 2)` |  |  |
 | Total | `r nt-1` | `r round(SST, 2)` |  |  |  |
 
-**b.**    
+**b.**\
 Do you think the leaves of all three varieties have the same mean phosphorous content? Provide a test statistic and an approximate p-value to support your answer.
 
-**R/**    
+**R/**\
 $$
 H_o : \mu_A = \mu_B = \mu_C 
-$$ 
+$$
 $$
 H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
 $$
+
 ```{r}
 F_cr <- qf(1-0.05, a - 1, nt - a )
 F_cr
 ```
-The probability of getting this results under the assumption of the null hypothesis is higher compared to the $\alpha = 5\%$, we fail to reject the null hypothesis, and have weak evidence to conclude that at least one of the mean phosphorous content from one tree variety is different from the others.
+
+The probability of getting this results under the assumption of the null hypothesis is higher compared to the $\alpha = 0.05$, we fail to reject the null hypothesis, and have weak evidence to conclude that at least one of the mean phosphorous content from one tree variety is different from the others.
 
 ## Problem 6
 
-To study the effects of pesticides on birds, an experimenter randomly and equally allocated 65 chicks to five diets (a control and four with a different pesticide included). After a month each chick’s calcium content (mg) in 2 cm length of bone was measured resulting in the following: 
+To study the effects of pesticides on birds, an experimenter randomly and equally allocated 65 chicks to five diets (a control and four with a different pesticide included). After a month each chick’s calcium content (mg) in 2 cm length of bone was measured resulting in the following:
+
+|             | Control | Pesticide 1 | Pesticide 2 | Pesticide 3 | Pesticide 4 |
+|:-----------:|:-------:|:-----------:|:-----------:|:-----------:|:-----------:|
+|  **Mean**   |  11.54  |    11.00    |    11.42    |    11.44    |    11.28    |
+| **St. Dev** |  0.27   |    0.47     |    0.31     |    0.42     |    0.31     |
+
+Construct the ANOVA table (i.e., compute the between and with-in SS) and test if there appears to be any difference in means (use $\alpha = 0.01$)
+```{r}
+nt2 <- 65
+a2 <- 5
+yt2 <- ( 11.54 + 11.00 + 11.42 + 11.44 + 11.28) *13 / nt2
+SStr2 <- 13 * ( 11.54 - yt2 ) ^ 2 + 13 * ( 11.00 - yt2 ) ^ 2 + 
+        13 * ( 11.42 - yt2 ) ^ 2 + 13 * ( 11.44 - yt2 ) ^ 2 +
+        13 * ( 11.28 - yt2 ) ^ 2 
+SStr2
+SSe2 <- ( 13 - 1) * (0.27 ^ 2 + 0.47 ^ 2 + 0.31 ^ 2 + 0.42 ^ 2 + 0.31 ^ 2 )
+SSe2
+MStr2 <- SStr2 / (a2 - 1)
+MStr2
+MSe2 <- SSe2 / (nt2 - a2)
+MSe2
+SST2 <- SStr2 + SSe2
+SST2
+F_v2 <- MStr2 / MSe2
+F_v2
+P_v2 <- 1 - pf(F_v2, a2 - 1, nt2 - a2 )
+P_v2
+```
+
+| Source of variation | df | SS | MS | F-value | P-value |
+|------------|------------|------------|------------|------------|------------|
+| Between | `r a2-1` | `r round(SStr2, 2)` | `r round(MStr2, 2)` | `r round(F_v2, 2)` | `r round(P_v2, 3)` |
+| With-in (Error) | `r nt2-a2` | `r round(SSe2, 2)` | `r round(MSe2, 2)` |  |  |
+| Total | `r nt2-1` | `r round(SST2, 2)` |  |  |  |
+
