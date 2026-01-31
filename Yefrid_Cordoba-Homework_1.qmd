@@ -180,8 +180,7 @@ Do you think the leaves of all three varieties have the same mean phosphorous co
 **R/**\
 $$
 H_o : \mu_A = \mu_B = \mu_C 
-$$
-$$
+$$ $$
 H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
 $$
 
@@ -202,6 +201,8 @@ To study the effects of pesticides on birds, an experimenter randomly and equall
 | **St. Dev** |  0.27   |    0.47     |    0.31     |    0.42     |    0.31     |
 
 Construct the ANOVA table (i.e., compute the between and with-in SS) and test if there appears to be any difference in means (use $\alpha = 0.01$)
+
+**R/**\
 ```{r}
 nt2 <- 65
 a2 <- 5
@@ -226,7 +227,17 @@ P_v2
 
 | Source of variation | df | SS | MS | F-value | P-value |
 |------------|------------|------------|------------|------------|------------|
-| Between | `r a2-1` | `r round(SStr2, 2)` | `r round(MStr2, 2)` | `r round(F_v2, 2)` | `r round(P_v2, 3)` |
+| Between | `r a2-1` | `r round(SStr2, 2)` | `r round(MStr2, 2)` | `r round(F_v2, 2)` | `r round(P_v2, 4)` |
 | With-in (Error) | `r nt2-a2` | `r round(SSe2, 2)` | `r round(MSe2, 2)` |  |  |
 | Total | `r nt2-1` | `r round(SST2, 2)` |  |  |  |
 
+$$
+H_o : \mu_C = \mu_1 = \mu_2 = \mu_3 = \mu_4
+$$ $$
+H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
+$$
+Based on the P-value obtained (`r round(P_v2, 4)`), under the assumption of the null hypothesis, the probability for the values obtained to happen is very low compared to our significance value ($\alpha = 0.01$), therefore we reject the null hypothesis, and we have strong evidence to conclude that at least one of the mean calcium content in the chickens bones is different than the other means.
+
+## Problem 7
+
+A large body of evidence shows that soy has health benefits for most people. Some of these benefits come largely from isoflavones, plant compounds that have estrogen-like properties. The amount of isoflavones varies widely depending on the type of food processing. A consumer group purchased various soy products and ran laboratory tests to determine the amount of isoflavones in each product. There were three major categories of soy products: cereals and snacks (1), energy bars (2), and veggie burgers (3). Five different products from each of the three categories were selected, and the amount of isoflavones (in mg) was determined for an adult serving of the product. The consumer group wanted to determine if the average amount of isoflavones was different for the three sources of soy products. The data are given in Table below. Use these data to test the research hypothesis of a difference in the mean isoflavone levels for the three categories. Use a $\alpha = 0.05$.

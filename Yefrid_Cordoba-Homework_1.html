@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Yefrid_Cordoba-Homework_1_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Yefrid_Cordoba-Homework_1_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Yefrid_Cordoba-Homework_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Yefrid_Cordoba-Homework_1_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Yefrid_Cordoba-Homework_1_files/libs/bootstrap/bootstrap-00b89fee0a844e7981cdfbc55183e926.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -466,6 +466,8 @@ H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
 </tbody>
 </table>
 <p>Construct the ANOVA table (i.e., compute the between and with-in SS) and test if there appears to be any difference in means (use <span class="math inline">\(\alpha = 0.01\)</span>)</p>
+<p><strong>R/</strong><br>
+</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>nt2 <span class="ot">&lt;-</span> <span class="dv">65</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
@@ -554,6 +556,15 @@ H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
 </tr>
 </tbody>
 </table>
+<p><span class="math display">\[
+H_o : \mu_C = \mu_1 = \mu_2 = \mu_3 = \mu_4
+\]</span> <span class="math display">\[
+H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
+\]</span> Based on the P-value obtained (0.004), under the assumption of the null hypothesis, the probability for the values obtained to happen is very low compared to our significance value (<span class="math inline">\(\alpha = 0.01\)</span>), therefore we reject the null hypothesis, and we have strong evidence to conclude that at least one of the mean calcium content in the chickens bones is different than the other means.</p>
+</section>
+<section id="problem-7" class="level2">
+<h2 class="anchored" data-anchor-id="problem-7">Problem 7</h2>
+<p>A large body of evidence shows that soy has health benefits for most people. Some of these benefits come largely from isoflavones, plant compounds that have estrogen-like properties. The amount of isoflavones varies widely depending on the type of food processing. A consumer group purchased various soy products and ran laboratory tests to determine the amount of isoflavones in each product. There were three major categories of soy products: cereals and snacks (1), energy bars (2), and veggie burgers (3). Five different products from each of the three categories were selected, and the amount of isoflavones (in mg) was determined for an adult serving of the product. The consumer group wanted to determine if the average amount of isoflavones was different for the three sources of soy products. The data are given in Table below. Use these data to test the research hypothesis of a difference in the mean isoflavone levels for the three categories. Use a <span class="math inline">\(\alpha = 0.05\)</span>.</p>
 </section>
 
 </main>
