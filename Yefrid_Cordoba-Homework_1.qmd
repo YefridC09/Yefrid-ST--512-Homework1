@@ -1,6 +1,6 @@
 ---
 title: "Homework #1"
-format: html
+format: pdf
 editor: visual
 author: "Yefrid Cordoba"
 ---
@@ -93,19 +93,18 @@ We are 95% confident that the true difference in the mean monthly sales with des
 Test at the 1% level of significance (assuming σ_1\^2 = σ_2\^2 ) whether the data provide sufficient evidence to conclude that the mean sales per month of the two designs are different. Use the critical value approach.
 
 **R/**\
-$$H_o : \mu_1 - \mu_2 = 0$$ $$H_a : \mu_1 - \mu_2 \neq 0$$
+$$H_o : \mu_1 - \mu_2 = 0$$
+$$H_a : \mu_1 - \mu_2 \neq 0$$
 
 ```{r}
 t_d12 <- (PE - 0) / SE
 t_d12
-t_crit <- qt(0.005, df)
-abs(t_crit)
+t_crit <- qt(1-0.005, df)
 t_crit
 t_d12 >= t_crit
-pt(1.039546, df)
 ```
 
-Based on the data, We fail to reject the null hypothesis, and have weak evidence to conclude that the true mean sales per moth of the two designs are different, considering a 1% of significance.
+Based on the comparison of the t-value agains the t-critical value, we fail to reject the null hypothesis, and have weak evidence to conclude that the true mean sales per month of the two designs are different, considering a 1% of significance.
 
 ## Problem 4
 
@@ -203,6 +202,7 @@ To study the effects of pesticides on birds, an experimenter randomly and equall
 Construct the ANOVA table (i.e., compute the between and with-in SS) and test if there appears to be any difference in means (use $\alpha = 0.01$)
 
 **R/**\
+
 ```{r}
 nt2 <- 65
 a2 <- 5
@@ -235,9 +235,71 @@ $$
 H_o : \mu_C = \mu_1 = \mu_2 = \mu_3 = \mu_4
 $$ $$
 H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
-$$
-Based on the P-value obtained (`r round(P_v2, 4)`), under the assumption of the null hypothesis, the probability for the values obtained to happen is very low compared to our significance value ($\alpha = 0.01$), therefore we reject the null hypothesis, and we have strong evidence to conclude that at least one of the mean calcium content in the chickens bones is different than the other means.
+$$ Based on the P-value obtained (`r round(P_v2, 4)`), under the assumption of the null hypothesis, the probability for the values obtained to happen is very low compared to our significance value ($\alpha = 0.01$), therefore we reject the null hypothesis, and we have strong evidence to conclude that at least one of the mean calcium content in the chickens bones is different than the other means.
 
 ## Problem 7
 
 A large body of evidence shows that soy has health benefits for most people. Some of these benefits come largely from isoflavones, plant compounds that have estrogen-like properties. The amount of isoflavones varies widely depending on the type of food processing. A consumer group purchased various soy products and ran laboratory tests to determine the amount of isoflavones in each product. There were three major categories of soy products: cereals and snacks (1), energy bars (2), and veggie burgers (3). Five different products from each of the three categories were selected, and the amount of isoflavones (in mg) was determined for an adult serving of the product. The consumer group wanted to determine if the average amount of isoflavones was different for the three sources of soy products. The data are given in Table below. Use these data to test the research hypothesis of a difference in the mean isoflavone levels for the three categories. Use a $\alpha = 0.05$.
+
+```{r}
+#| message: false
+library(tidyverse)
+isocontent = c(3, 17, 12, 10, 4, 19, 10, 9, 7, 5, 25, 15, 12, 9, 8)
+source = c(rep("1",5), rep("2",5), rep("3",5))
+isoflavone = data.frame(isocontent,source)
+group1 <- c(3, 17, 12, 10, 4) # Cereals and Snacks
+group2 <- c(19, 10, 9, 7, 5) # Energy Bars
+group3 <- c(25, 15, 12, 9, 8) # Veggie Burgers
+category <- factor(rep(c("Cereals", "Energy Bars", "Veggie Burgers"), each = 5))
+isoflavones <- c(group1, group2, group3)
+```
+
+![](images/clipboard-1671055492.png)
+
+**a.**\
+Using R verify that the sample sizes, means, and variances are correct.
+
+**R/**
+
+```{r}
+isoflavone |>
+  group_by(source)|>
+    summarise(Sample_size = n(), Sample_means = mean(isocontent),
+              Sample_variance = var(isocontent))
+isoflavone |>
+  summarise(Overall_size = n(), Overall_means = mean(isocontent))
+```
+
+**b.**\
+Using R produce the boxplot and make your comments.
+
+```{r}
+isoflavone |>
+  ggplot(aes(x = source, y = isocontent)) +
+    theme_bw() + 
+    labs( x = "Source of soy",
+          y = "Isoflavones content (mg)",
+          title = "Isoflavones content of different soy products - Problem 7",
+          subtitle = "Yefrid Cordoba")+
+    scale_x_discrete(labels = c("1" = "Cereals and snacks",
+                                "2" = "Energy bars",
+                                "3" = "Veggie burgers"))+
+    geom_boxplot()
+```
+
+Veggie burgers tend to have the highest typical isoflavones content and it includes an especially high outlier, while energy bars show the least variable isoflavones content, centered just under 10 mg. Cereals and snacks are highly variable with values ranging from low to moderately high.
+
+**c.**\
+Test the hypothesis:
+$$
+H_o : \mu_1 = \mu_2 = \mu_3
+$$
+$$
+H_a  : At\:least\:one\: \mu_i \neq \mu_j \:; for \: i\neq j
+$$
+
+```{r}
+anova_model <- aov(isocontent ~ source, data = isoflavone)
+summary(anova_model)
+```
+Given the high probability of this results to happen, being larger than the significance level for the analisys, under the assumption of the null hypothesis, we fail to reject the null hypothesis and conclude that we have weak evidence to conclude that there is a true difference in the mean content of isoflavones from one of the sources compare to the others.
